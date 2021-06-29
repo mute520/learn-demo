@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="student">
     <el-table :data="tableData" stripe :header-cell-style="{background:'#cdcbd4'}">
       <el-table-column prop="uid" label="学号"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
@@ -197,3 +197,10 @@ export default {
   },
 }
 </script>
+
+<style lang="less" scoped>
+.student {
+  height: 100%;
+  overflow: auto;
+}
+</style>

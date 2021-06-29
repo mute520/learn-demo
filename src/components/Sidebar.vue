@@ -6,7 +6,7 @@
         <div class="text">{{item.name}}</div>
       </li>
     </ul>
-    <div class="btn" @click="isRotate = !isRotate">
+    <div class="btn" @click="clickPullbtn">
       <i class="el-icon-arrow-left" :class="{rotate: isRotate}"></i>
     </div>
   </div>
@@ -15,10 +15,13 @@
 <script>
 export default {
   name: 'sidebar',
+  props: {
+    status: Boolean,
+  },
   data() {
     return {
       flag: true,
-      isRotate: false,
+      isRotate: this.status,
       navIndex: 0,
       navList: [
         { path: '/', name: 'Home' },
@@ -28,13 +31,24 @@ export default {
       ]
     }
   },
-  mounted() {},
+  watch: {
+    status(val) {
+      this.isRotate = val
+    },
+  },
+  mounted() {
+    
+  },
   methods: {
     clickNav(path, index) {
       if (this.navIndex === index) return
       this.navIndex = index
       this.$router.push(path)
-    }
+    },
+    clickPullbtn() {
+      this.isRotate = !this.isRotate
+      this.$emit('clickPullBtn', this.isRotate)
+    },
   }
 }
 </script>
@@ -48,7 +62,8 @@ export default {
   width: 100px;
   height: 100%;
   transition: all .3s;
-  background: #0f9;
+  // background: #0f9;
+  background: rgba(0, 255, 153, .5);
   &.active {
     left: -100px;
   }
@@ -62,7 +77,8 @@ export default {
     line-height: 40px;
     border-left: 1px solid #fff;
     border-radius: 0 8px 8px 0;
-    background: #0f9;
+    // background: #0f9;
+    background: rgba(0, 255, 153, .5);
     cursor: pointer;
     i {
       transition: all .3s;
@@ -78,7 +94,8 @@ export default {
     padding: 0;
     li {
       list-style: none;
-      background: #0f9;
+      // background: #0f9;
+      background: rgba(0, 255, 153, .5);
       color: #fff;
       padding: 6px;
       border-bottom: 1px solid #eee;
